@@ -16,8 +16,10 @@ DataBaseManager::DataBaseManager() {
     if(!dir.exists()) dir.mkpath(dir.path());
     db.setDatabaseName(dbpath);
 }
-DataBaseManager::~DataBaseManager(){
-    db.removeDatabase("default");
+DataBaseManager::~DataBaseManager() {
+    QString name = db.connectionName();
+    db.close();
+    QSqlDatabase::removeDatabase(name);
 }
 DataBaseManager& DataBaseManager::instance() {
     //la primera ves crea una instancia, la siguiente la reutiliza
