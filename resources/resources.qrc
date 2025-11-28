@@ -1,1 +1,5 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/resources">
+        <file>database/RegistroDeMascotas-Schema.sql</file>
+    </qresource>
+</RCC>
