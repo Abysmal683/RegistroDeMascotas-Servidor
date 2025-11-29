@@ -3,7 +3,7 @@
 #include <QSqlError>
 #include <QVariant>
 #include <QDebug>
-
+#include "Mascota.h"
 MascotaDAO::MascotaDAO(QSqlDatabase& db) : db(db){}
 
 // ----------------------------------------------------------
@@ -39,11 +39,19 @@ bool MascotaDAO::insertar(const Mascota &m, int &lastInsertId)
 }
 
 // ----------------------------------------------------------
-std::optional<Mascota> MascotaDAO::obtenerPorId(int id)
+Mascota MascotaDAO::obtenerPorId(int id)
 {
+    Mascota m;
+    m.nombre = "";
+    m.raza = "";
+    m.sexo = "";
+    m.peso = 0.0;
+    m.edad = 0;
+    m.especie = "";
+    m.foto.clear();
     if (!db.isOpen()) {
         qCritical() << "DB cerrada en obtenerPorId().";
-        return std::nullopt;
+        return m;
     }
 
     QSqlQuery q(db);
@@ -53,13 +61,12 @@ std::optional<Mascota> MascotaDAO::obtenerPorId(int id)
 
     if (!q.exec()) {
         qCritical() << "Error SELECT por id:" << q.lastError().text();
-        return std::nullopt;
+        return m;
     }
 
     if (!q.next())
-        return std::nullopt;
+        return m;
 
-    Mascota m;
     m.id = q.value(0).toInt();
     m.nombre = q.value(1).toString();
     m.raza = q.value(2).toString();

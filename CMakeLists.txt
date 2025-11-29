@@ -8,6 +8,7 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS
     Widgets
     LinguistTools
     Sql
+    Network
 #   Gui
 )
 
@@ -62,6 +63,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt::Core
         Qt::Widgets
         Qt6::Sql
+        Qt6::Network
 #        Qt::Gui
 )
 #salidas de directorios

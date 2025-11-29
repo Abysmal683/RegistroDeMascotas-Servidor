@@ -3,10 +3,16 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
-
+#include "databasemanager.h"
+#include "Mascota.h"
+#include <QMetaType>
 int main(int argc, char *argv[])
 {
+    qRegisterMetaType<Mascota>("Mascota");
     QApplication a(argc, argv);
+    if (!DataBaseManager::instance().initialize()){
+        qCritical() << "No se pudo inicialziar el sql.";
+    }
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
