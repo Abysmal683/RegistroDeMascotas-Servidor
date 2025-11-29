@@ -11,8 +11,9 @@ class TcpServerManager : public QObject
 
 public:
     explicit TcpServerManager(QObject *parent = nullptr);
-
     bool startServer(quint16 port);
+    void sendToClient(QTcpSocket* client, const QJsonObject& obj);
+    QList<QTcpSocket*> getClients();
 
 signals:
     // Cliente envió datos en bruto (si mantienes un canal genérico)
@@ -22,13 +23,7 @@ signals:
     void requestAddMascota(const Mascota &m);
     void requestUpdateMascota(const Mascota &m);
     void requestDeleteMascota(int id);
-    void requestAllMascotas();   // cliente pide tabla completa
-
-    // Respuestas que el servidor envía a los clientes
-    void sendMascotaAdded(const Mascota &m);
-    void sendMascotaUpdated(const Mascota &m);
-    void sendMascotaDeleted(int id);
-    void sendAllMascotas(const QVector<Mascota> &lista);
+    void requestAllMascotas(QTcpSocket* client);   // cliente pide tabla completa
 
 private slots:
     void onNewConnection();
