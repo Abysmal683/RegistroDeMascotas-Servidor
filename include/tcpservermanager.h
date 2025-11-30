@@ -20,7 +20,7 @@ signals:
     void rawMessageReceived(const QByteArray &msg);
 
     // Peticiones desde el cliente
-    void requestAddMascota(const Mascota &m);
+    void requestAddMascota(QTcpSocket* client,const Mascota &m);
     void requestUpdateMascota(const Mascota &m);
     void requestDeleteMascota(int id);
     void requestAllMascotas(QTcpSocket* client);   // cliente pide tabla completa

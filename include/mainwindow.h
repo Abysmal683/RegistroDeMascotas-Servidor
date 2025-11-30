@@ -23,11 +23,12 @@ private slots:
     void onRequestUpdateMascota(const Mascota& m);
     void onRequestDeleteMascota(int id);
 
+
 private:
     Ui::MainWindow *ui;
     ControlWidget *controlWidget;
     TcpServerManager *tcpServerManager;
-
+    int selectPuerto();
 };
 
 #endif // MAINWINDOW_H

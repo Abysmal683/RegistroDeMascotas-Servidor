@@ -3,6 +3,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include "Mascota.h"
+
 TcpServerManager::TcpServerManager(QObject *parent)
     : QObject(parent), server(new QTcpServer(this))
 {
@@ -20,6 +21,7 @@ bool TcpServerManager::startServer(quint16 port)
     qDebug() << "Servidor TCP escuchando en puerto" << port;
     return true;
 }
+
 void TcpServerManager::sendToClient(QTcpSocket* client, const QJsonObject& obj)
 {
     QJsonDocument doc(obj);
@@ -80,7 +82,7 @@ void TcpServerManager::onClientReadyRead()
             return;
         }
         Mascota m = mascotaFromJson(obj["data"].toObject());
-        emit requestAddMascota(m);
+        emit requestAddMascota(client,m);
         return;
     }
 

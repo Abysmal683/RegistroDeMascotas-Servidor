@@ -1,8 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QInputDialog>
+#include <QLabel>
 #include "controlwidget.h"
 #include "databasemanager.h"
 #include "mascotadao.h"
+#include "Mascota.h"
+#include "tcpservermanager.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -11,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     controlWidget = new ControlWidget(this);
     setCentralWidget(controlWidget);
     tcpServerManager = new TcpServerManager(this);
-    tcpServerManager->startServer(5555);
+    tcpServerManager->startServer(selectPuerto());
 
     //conexiones al cliente
     connect(tcpServerManager,&TcpServerManager::rawMessageReceived,this,[this](const QByteArray &msg){
@@ -28,7 +33,18 @@ MainWindow::MainWindow(QWidget *parent)
     connect(tcpServerManager,&TcpServerManager::requestDeleteMascota,
             this,&MainWindow::onRequestDeleteMascota);
 }
+int MainWindow::selectPuerto(){
+    bool ok;
+    int puerto = QInputDialog::getInt(
+        this, "Configuracion del Servidor",
+        "Ingrese el puerto",
+        8080,1,65535,1,&ok);
+    if(!ok) puerto = 5050;
+    QLabel* labelPuerto = new QLabel(QString("Puerto: %1").arg(puerto));
+    ui->statusbar->addPermanentWidget(labelPuerto);
 
+    return puerto;
+}
 MainWindow::~MainWindow()
 {
     delete ui;
