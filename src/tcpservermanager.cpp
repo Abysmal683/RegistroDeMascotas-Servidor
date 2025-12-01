@@ -105,6 +105,23 @@ void TcpServerManager::onClientReadyRead()
         emit requestDeleteMascota(obj["id"].toInt());
         return;
     }
+    if (type == "research_id") {
+        if(!obj.contains("id")){
+            qWarning() << "JSON sin id";
+            return;
+        }
+        emit requestResearchIdMascota(obj["id"].toInt());
+        return;
+    }
+    if (type == "research_name") {
+        if(!obj.contains("name")){
+            qWarning() << "JSON sin name";
+            return;
+        }
+        emit requestResearchNameMascota(obj["name"].toString());
+        return;
+    }
+
 }
 
 void TcpServerManager::onClientDisconnected()

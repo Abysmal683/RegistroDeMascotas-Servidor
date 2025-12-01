@@ -23,6 +23,8 @@ signals:
     void requestAddMascota(QTcpSocket* client,const Mascota &m);
     void requestUpdateMascota(const Mascota &m);
     void requestDeleteMascota(int id);
+    void requestResearchIdMascota(int id);
+    void requestResearchNameMascota(QString name);
     void requestAllMascotas(QTcpSocket* client);   // cliente pide tabla completa
     void newClientConnect(QString msg);
     void clientDisconnect(QString msg);
