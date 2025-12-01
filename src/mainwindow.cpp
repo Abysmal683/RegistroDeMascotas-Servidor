@@ -5,7 +5,7 @@
 #include "controlwidget.h"
 #include "databasemanager.h"
 #include "mascotadao.h"
-#include "Mascota.h"
+#include "mascota.h"
 #include "tcpservermanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -32,6 +32,10 @@ MainWindow::MainWindow(QWidget *parent)
             this,&MainWindow::onRequestUpdateMascota);
     connect(tcpServerManager,&TcpServerManager::requestDeleteMascota,
             this,&MainWindow::onRequestDeleteMascota);
+    connect(tcpServerManager,&TcpServerManager::newClientConnect,
+            this,&MainWindow::onNewClient);
+    connect(tcpServerManager,&TcpServerManager::clientDisconnect,
+            this,&MainWindow::onDisconnectClient);
 }
 int MainWindow::selectPuerto(){
     bool ok;
@@ -41,7 +45,7 @@ int MainWindow::selectPuerto(){
         8080,1,65535,1,&ok);
     if(!ok) puerto = 5050;
     QLabel* labelPuerto = new QLabel(QString("Puerto: %1").arg(puerto));
-    ui->statusbar->addPermanentWidget(labelPuerto);
+    statusBar()->addPermanentWidget(labelPuerto);
 
     return puerto;
 }
@@ -93,3 +97,9 @@ void MainWindow::onRequestDeleteMascota(int id)
     dao.eliminar(id);
 }
 
+void MainWindow::onNewClient(QString msg){
+    statusBar()->showMessage(msg,3000);
+}
+void MainWindow::onDisconnectClient(QString msg){
+    statusBar()->showMessage(msg,3000);
+}

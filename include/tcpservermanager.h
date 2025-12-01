@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
-#include "Mascota.h"
+#include "mascota.h"
 class TcpServerManager : public QObject
 {
     Q_OBJECT
@@ -24,7 +24,8 @@ signals:
     void requestUpdateMascota(const Mascota &m);
     void requestDeleteMascota(int id);
     void requestAllMascotas(QTcpSocket* client);   // cliente pide tabla completa
-
+    void newClientConnect(QString msg);
+    void clientDisconnect(QString msg);
 private slots:
     void onNewConnection();
     void onClientReadyRead();

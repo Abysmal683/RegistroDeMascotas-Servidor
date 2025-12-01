@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "tcpservermanager.h"
-#include "Mascota.h"
+#include <QTcpSocket>
+#include "mascota.h"
 class ControlWidget;
-
+class TcpServerManager;
 namespace Ui {
 class MainWindow;
 }
@@ -22,7 +22,8 @@ private slots:
     void onRequestAddMascota(QTcpSocket* client,const Mascota& m);
     void onRequestUpdateMascota(const Mascota& m);
     void onRequestDeleteMascota(int id);
-
+    void onNewClient(QString msg);
+    void onDisconnectClient(QString msg);
 
 private:
     Ui::MainWindow *ui;

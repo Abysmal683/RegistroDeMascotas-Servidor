@@ -1,5 +1,5 @@
 #include "controlwidget.h"
-#include "Mascota.h"
+#include "mascota.h"
 #include "ui_controlwidget.h"
 #include "databasemanager.h"
 #include "mascotadao.h"

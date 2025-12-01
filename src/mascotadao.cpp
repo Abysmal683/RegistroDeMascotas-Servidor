@@ -3,7 +3,7 @@
 #include <QSqlError>
 #include <QVariant>
 #include <QDebug>
-#include "Mascota.h"
+#include "mascota.h"
 MascotaDAO::MascotaDAO(QSqlDatabase& db) : db(db){}
 
 // ----------------------------------------------------------

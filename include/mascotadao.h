@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QVector>
-#include "Mascota.h"
+#include "mascota.h"
 
 
 class MascotaDAO {

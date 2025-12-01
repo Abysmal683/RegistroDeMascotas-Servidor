@@ -4,7 +4,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include "databasemanager.h"
-#include "Mascota.h"
+#include "mascota.h"
 #include <QMetaType>
 int main(int argc, char *argv[])
 {

@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include "Mascota.h"
+#include "mascota.h"
 
 TcpServerManager::TcpServerManager(QObject *parent)
     : QObject(parent), server(new QTcpServer(this))
@@ -39,6 +39,7 @@ void TcpServerManager::onNewConnection()
 
     connect(client, &QTcpSocket::disconnected,
             this, &TcpServerManager::onClientDisconnected);
+    emit newClientConnect(QString("Nuevo Cliente"));
 }
 QList<QTcpSocket*> TcpServerManager::getClients(){
     return clientes;
@@ -113,6 +114,5 @@ void TcpServerManager::onClientDisconnected()
 
     clientes.removeOne(client);
     client->deleteLater();
-
-    qDebug() << "Cliente desconectado.";
+    emit clientDisconnect(QString("Un Cliente se Desconecto"));
 }
