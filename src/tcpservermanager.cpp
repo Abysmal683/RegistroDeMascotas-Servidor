@@ -114,14 +114,21 @@ void TcpServerManager::onClientReadyRead()
         return;
     }
     if (type == "research_name") {
-        if(!obj.contains("name")){
-            qWarning() << "JSON sin name";
+        if(!obj.contains("nombre")){
+            qWarning() << "JSON sin nombre";
             return;
         }
-        emit requestResearchNameMascota(client,obj["name"].toString());
+        emit requestResearchNameMascota(client,obj["nombre"].toString());
         return;
     }
-
+    if (type == "view_imagen_id") {
+        if(!obj.contains("id")){
+            qWarning() << "JSON sin id";
+            return;
+        }
+        emit requestViewImagenMascotas(client,obj["id"].toInt());
+        return;
+    }
 }
 
 void TcpServerManager::onClientDisconnected()

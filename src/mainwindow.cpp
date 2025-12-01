@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
             this,&::MainWindow::onRequestResearchIdMascota);
     connect(tcpServerManager,&TcpServerManager::requestResearchNameMascota,
             this,&MainWindow::onRequestResearchNameMascota);
+    connect(tcpServerManager,&TcpServerManager::requestViewImagenMascotas,
+            this,&MainWindow::onRequestViewImagenMascota);
     //avisa si se conecta o desconecta un app
     connect(tcpServerManager,&TcpServerManager::newClientConnect,
             this,&MainWindow::onNewClient);
@@ -119,6 +121,15 @@ void MainWindow::onRequestResearchNameMascota(QTcpSocket* client,QString name)
     QJsonObject resp;
     resp["type"] = "name_research";
     resp["data"] = arr;
+    tcpServerManager->sendToClient(client, resp);
+}
+void MainWindow::onRequestViewImagenMascota(QTcpSocket* client,int id){
+    QSqlDatabase& db = DataBaseManager::instance().getDatabase();
+    MascotaDAO dao(db);
+    QByteArray foto = dao.obtenerFoto(id);
+    QJsonObject resp;
+    resp["type"] = "view_imagen_result";
+    resp["foto"] = QString::fromLatin1(foto.toBase64());
     tcpServerManager->sendToClient(client, resp);
 }
 void MainWindow::onNewClient(QString msg){

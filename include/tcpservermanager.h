@@ -22,6 +22,7 @@ signals:
     void requestResearchIdMascota(QTcpSocket* client,int id);
     void requestResearchNameMascota(QTcpSocket* client,QString name);
     void requestAllMascotas(QTcpSocket* client);   // cliente pide tabla completa
+    void requestViewImagenMascotas(QTcpSocket* client,int id);
     void newClientConnect(QString msg);
     void clientDisconnect(QString msg);
 private slots:

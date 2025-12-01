@@ -25,7 +25,9 @@ private slots:
     void onNewClient(QString msg);
     void onDisconnectClient(QString msg);
     void onRequestResearchIdMascota(QTcpSocket* client,int id);
+    void onRequestViewImagenMascota(QTcpSocket* client,int id);
     void onRequestResearchNameMascota(QTcpSocket* client,QString name);
+
 private:
     Ui::MainWindow *ui;
     ControlWidget *controlWidget;

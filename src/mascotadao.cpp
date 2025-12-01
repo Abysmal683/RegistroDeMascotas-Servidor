@@ -143,7 +143,16 @@ QVector<Mascota> MascotaDAO::obtenerTodas()
 
     return lista;
 }
-
+QByteArray MascotaDAO::obtenerFoto(int id){
+    QByteArray foto;
+    QSqlQuery q(db);
+    q.prepare("SELECT foto FROM mascotas WHERE id = :id");
+    q.bindValue(":id",id);
+    if(q.exec()&&q.next()){
+        foto = q.value(0).toByteArray();
+    }
+    return foto;
+}
 // ----------------------------------------------------------
 bool MascotaDAO::actualizar(const Mascota &m)
 {
