@@ -110,7 +110,7 @@ void TcpServerManager::onClientReadyRead()
             qWarning() << "JSON sin id";
             return;
         }
-        emit requestResearchIdMascota(obj["id"].toInt());
+        emit requestResearchIdMascota(client,obj["id"].toInt());
         return;
     }
     if (type == "research_name") {
@@ -118,7 +118,7 @@ void TcpServerManager::onClientReadyRead()
             qWarning() << "JSON sin name";
             return;
         }
-        emit requestResearchNameMascota(obj["name"].toString());
+        emit requestResearchNameMascota(client,obj["name"].toString());
         return;
     }
 

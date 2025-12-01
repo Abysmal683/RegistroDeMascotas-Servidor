@@ -13,6 +13,7 @@ public:
 
     bool insertar(const Mascota &m, int &lastInsertId);
     Mascota obtenerPorId(int id);
+    QVector<Mascota> obtenerPorName(QString name);
     QVector<Mascota> obtenerTodas();
     bool actualizar(const Mascota &m);
     bool eliminar(int id);

@@ -14,17 +14,13 @@ public:
     bool startServer(quint16 port);
     void sendToClient(QTcpSocket* client, const QJsonObject& obj);
     QList<QTcpSocket*> getClients();
-
 signals:
-    // Cliente envió datos en bruto (si mantienes un canal genérico)
-    void rawMessageReceived(const QByteArray &msg);
-
     // Peticiones desde el cliente
     void requestAddMascota(QTcpSocket* client,const Mascota &m);
     void requestUpdateMascota(const Mascota &m);
     void requestDeleteMascota(int id);
-    void requestResearchIdMascota(int id);
-    void requestResearchNameMascota(QString name);
+    void requestResearchIdMascota(QTcpSocket* client,int id);
+    void requestResearchNameMascota(QTcpSocket* client,QString name);
     void requestAllMascotas(QTcpSocket* client);   // cliente pide tabla completa
     void newClientConnect(QString msg);
     void clientDisconnect(QString msg);

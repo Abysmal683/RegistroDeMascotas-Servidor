@@ -24,7 +24,8 @@ private slots:
     void onRequestDeleteMascota(int id);
     void onNewClient(QString msg);
     void onDisconnectClient(QString msg);
-
+    void onRequestResearchIdMascota(QTcpSocket* client,int id);
+    void onRequestResearchNameMascota(QTcpSocket* client,QString name);
 private:
     Ui::MainWindow *ui;
     ControlWidget *controlWidget;

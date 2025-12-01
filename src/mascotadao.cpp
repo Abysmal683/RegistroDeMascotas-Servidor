@@ -78,7 +78,39 @@ Mascota MascotaDAO::obtenerPorId(int id)
 
     return m;
 }
+QVector<Mascota> MascotaDAO::obtenerPorName(QString name)
+{
+    QVector<Mascota> lista;
+    if (!db.isOpen()) {
+        qCritical() << "DB cerrada en obtenerPorName().";
+        return lista;
+    }
 
+    QSqlQuery q(db);
+    q.prepare("SELECT id, nombre, raza, sexo, peso, edad, especie, foto "
+              "FROM mascotas WHERE nombre = :nombre");
+    q.bindValue(":nombre", name);
+
+    if (!q.exec()) {
+        qCritical() << "Error SELECT por nombre:" << q.lastError().text();
+        return lista;
+    }
+
+    while (q.next()) {
+        Mascota m;
+        m.id = q.value(0).toInt();
+        m.nombre = q.value(1).toString();
+        m.raza = q.value(2).toString();
+        m.sexo = q.value(3).toString();
+        m.peso = q.value(4).toDouble();
+        m.edad = q.value(5).toInt();
+        m.especie = q.value(6).toString();
+        m.foto = q.value(7).toByteArray();
+
+        lista.append(m);
+    }
+    return lista;
+}
 // ----------------------------------------------------------
 QVector<Mascota> MascotaDAO::obtenerTodas()
 {
