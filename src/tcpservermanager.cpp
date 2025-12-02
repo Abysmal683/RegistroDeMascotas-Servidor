@@ -93,7 +93,7 @@ void TcpServerManager::onClientReadyRead()
             return;
         }
         Mascota m = mascotaFromJson(obj["data"].toObject());
-        emit requestUpdateMascota(m);
+        emit requestUpdateMascota(client,m);
         return;
     }
 
@@ -102,7 +102,7 @@ void TcpServerManager::onClientReadyRead()
             qWarning() << "JSON sin id";
             return;
         }
-        emit requestDeleteMascota(obj["id"].toInt());
+        emit requestDeleteMascota(client,obj["id"].toInt());
         return;
     }
     if (type == "research_id") {

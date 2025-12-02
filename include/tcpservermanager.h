@@ -17,8 +17,8 @@ public:
 signals:
     // Peticiones desde el cliente
     void requestAddMascota(QTcpSocket* client,const Mascota &m);
-    void requestUpdateMascota(const Mascota &m);
-    void requestDeleteMascota(int id);
+    void requestUpdateMascota(QTcpSocket* client,const Mascota &m);
+    void requestDeleteMascota(QTcpSocket* client,int id);
     void requestResearchIdMascota(QTcpSocket* client,int id);
     void requestResearchNameMascota(QTcpSocket* client,QString name);
     void requestAllMascotas(QTcpSocket* client);   // cliente pide tabla completa

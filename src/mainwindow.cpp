@@ -82,19 +82,26 @@ void MainWindow::onRequestAddMascota(QTcpSocket* client,const Mascota& m)
     resp["id"] = lastId;
         tcpServerManager->sendToClient(client, resp);
 }
-void MainWindow::onRequestUpdateMascota(const Mascota& m)
+void MainWindow::onRequestUpdateMascota(QTcpSocket* client,const Mascota& m)
 {
     QSqlDatabase& db = DataBaseManager::instance().getDatabase();
     MascotaDAO dao(db);
-    int lastId;
-    dao.actualizar(m);
+    int lastId = m.id;
+    bool ok = dao.actualizar(m);
+    QJsonObject resp;
+    resp["type"] = ok ? "update_ok" : "update_error";
+    resp["id"] = lastId;
+    tcpServerManager->sendToClient(client, resp);
 }
-void MainWindow::onRequestDeleteMascota(int id)
+void MainWindow::onRequestDeleteMascota(QTcpSocket* client,int id)
 {
     QSqlDatabase& db = DataBaseManager::instance().getDatabase();
     MascotaDAO dao(db);
     int lastId;
-    dao.eliminar(id);
+    bool ok = dao.eliminar(id);
+    QJsonObject resp;
+    resp["type"] = ok ? "delete_ok" : "delete_error";
+    tcpServerManager->sendToClient(client, resp);
 }
 void MainWindow::onRequestResearchIdMascota(QTcpSocket* client, int id)
 {

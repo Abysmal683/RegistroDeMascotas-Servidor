@@ -20,8 +20,8 @@ public:
 private slots:
     void onRequestAllMascotas(QTcpSocket* client);
     void onRequestAddMascota(QTcpSocket* client,const Mascota& m);
-    void onRequestUpdateMascota(const Mascota& m);
-    void onRequestDeleteMascota(int id);
+    void onRequestUpdateMascota(QTcpSocket* client,const Mascota& m);
+    void onRequestDeleteMascota(QTcpSocket* client,int id);
     void onNewClient(QString msg);
     void onDisconnectClient(QString msg);
     void onRequestResearchIdMascota(QTcpSocket* client,int id);
